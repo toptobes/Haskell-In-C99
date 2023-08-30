@@ -1,8 +1,6 @@
 #ifndef FUNCTIONALC_TYPES_H
 #define FUNCTIONALC_TYPES_H
 
-//#define DOUBLEPP
-
 #define NoneConstraint None
 typedef struct {} None;
 
@@ -58,7 +56,9 @@ typedef struct {} None;
 #define CreateDataImpl(name, init, ...) typedef struct { union { SEMICOLON_SEPARATED(__VA_ARGS__) } as; init; } name; CAST_FN_GROUPS(name, __VA_ARGS__)
 #define CreateData(name, init, ...) CreateDataImpl(name, init EXPAND(__VA_ARGS__))
 
-#define Unconstrained , None
-#define ConstrainedBy ,
+#define unconstrained , None
+#define constrained
+#define by ,
+#define containing ,
 
 #endif//FUNCTIONALC_TYPES_H

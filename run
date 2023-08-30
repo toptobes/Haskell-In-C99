@@ -1,6 +1,6 @@
 #!/bin/bash
 
-c_files=$(find . src -name *.c)
+c_files=$(find src -name "*.c")
 
 preprocessed_files=""
 for file in $c_files; do
@@ -9,7 +9,7 @@ for file in $c_files; do
   preprocessed_files="$preprocessed_files $output_file"
 done
 
-gcc $preprocessed_files -o main.exe -w
+gcc $preprocessed_files -o main.exe -w -DDOUBLEPP
 
 ./main.exe
 

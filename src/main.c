@@ -2,8 +2,9 @@
 
 #include <stdio.h>
 #include <malloc.h>
-#include "include/closures.h"
-#include "include/types.h"
+#include "../include/closures.h"
+#include "../include/types.h"
+#include "../include/misc.h"
 
 //#define BIND_FN(name, R, ...) R (*name)(__VA_ARGS__)
 //
@@ -76,28 +77,23 @@ void test() {
     print_filtered (100, λ (divisibleBy, divisor));
 }
 
-#define FunctorConstraint Functor Unconstrained
-CreateTypeClass(Functor Unconstrained)
+#define FunctorConstraint Functor unconstrained
+CreateTypeClass(Functor unconstrained)
 
-#define ApplicativeConstraint Applicative ConstrainedBy FunctorConstraint
-CreateTypeClass(Applicative ConstrainedBy Functor)
+#define ApplicativeConstraint Applicative constrained by FunctorConstraint
+CreateTypeClass(Applicative constrained by Functor)
 
-#define MonadConstraint Monad ConstrainedBy ApplicativeConstraint
-CreateTypeClass(Monad ConstrainedBy Applicative)
+#define MonadConstraint Monad constrained by ApplicativeConstraint
+CreateTypeClass(Monad constrained by Applicative)
 
-#define TestConstraint Test Unconstrained
-CreateTypeClass(Test Unconstrained)
+#define TestConstraint Test unconstrained
+CreateTypeClass(Test unconstrained)
 
-CreateData(Maybe, void* value; int isNothing ConstrainedBy Monad, Test)
+CreateData(Maybe containing void* value; int isNothing constrained by Monad, Test)
 
 Maybe Just(int *p) {
     return (Maybe) { .isNothing = 0, .value = p };
 }
-
-#define to ,
-
-#define fmap(name, args, ...) fmapImpl(name, args, EXPAND(__VA_ARGS__))
-#define fmapImpl(...)
 
 void* fromJust(Maybe m) {
     return m.value;
@@ -109,27 +105,17 @@ Maybe fmapMaybe(FmapFn **fn, Maybe m) {
     return m.isNothing ? m : Just (Call (fn, fromJust (m)));
 }
 
-int* add3(void *_, const int *a) {
-    int *b = malloc(sizeof *b);
-    *b = *a + 3;
-    return b;
+int* add3(void *, const int *a) {
+    return Allocated(*a + 3)
 }
 
-#define $ (
-
-#define end  ;
-#define end1 );
-#define end2 ));
-#define end3 )));
-#define end4 ))));
-#define end5 )))));
-
-#define deref(T) *(T*)
-
-int main(int argc, char **argv)
+int main(int argc)
 {
     return deref(int) fromJust $ fmapMaybe $ Λ (add3), Just (&argc) end2
 }
 
-//    fmap ((Λ (add3), myMaybe), FmapFn** to Maybe to Maybe)
-//    return *(Call(Λ (add3), &argc));
+//#define fmap(name, args, ...) fmapImpl(name, args, EXPAND(__VA_ARGS__))
+//#define fmapImpl(...)
+
+//fmap ((Λ (add3), myMaybe), FmapFn** to Maybe to Maybe)
+//return *(Call(Λ (add3), &argc));

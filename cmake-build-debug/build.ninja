@@ -49,11 +49,11 @@ cmake_ninja_workdir = C$:/Users/wanna/Documents/GitHub/functionalC/cmake-build-d
 
 build cmake_object_order_depends_target_functionalC: phony || CMakeFiles/functionalC.dir
 
-build CMakeFiles/functionalC.dir/main.c.obj: C_COMPILER__functionalC_Debug C$:/Users/wanna/Documents/GitHub/functionalC/main.c || cmake_object_order_depends_target_functionalC
-  DEP_FILE = CMakeFiles\functionalC.dir\main.c.obj.d
+build CMakeFiles/functionalC.dir/src/main.c.obj: C_COMPILER__functionalC_Debug C$:/Users/wanna/Documents/GitHub/functionalC/src/main.c || cmake_object_order_depends_target_functionalC
+  DEP_FILE = CMakeFiles\functionalC.dir\src\main.c.obj.d
   FLAGS = -g -std=gnu99
   OBJECT_DIR = CMakeFiles\functionalC.dir
-  OBJECT_FILE_DIR = CMakeFiles\functionalC.dir
+  OBJECT_FILE_DIR = CMakeFiles\functionalC.dir\src
 
 
 # =============================================================================
@@ -63,7 +63,7 @@ build CMakeFiles/functionalC.dir/main.c.obj: C_COMPILER__functionalC_Debug C$:/U
 #############################################
 # Link the executable functionalC.exe
 
-build functionalC.exe: C_EXECUTABLE_LINKER__functionalC_Debug CMakeFiles/functionalC.dir/main.c.obj
+build functionalC.exe: C_EXECUTABLE_LINKER__functionalC_Debug CMakeFiles/functionalC.dir/src/main.c.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\functionalC.dir
