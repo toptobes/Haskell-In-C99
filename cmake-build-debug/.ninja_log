@@ -1,9 +1,4 @@
 # ninja log v5
 4	172	7151381387568396	CMakeFiles/functionalC.dir/main.c.obj	5e71503071ab6349
-172	411	7151381389932174	functionalC.exe	32168b7c1e2699ed
-1	181	7151402291080939	CMakeFiles/functionalC.dir/src/main.c.obj	a8ea97262b45a403
-193	460	7151402293773977	functionalC.exe	6f8a7df786207870
-5	181	7151404579860707	CMakeFiles/functionalC.dir/src/main.c.obj	a8ea97262b45a403
-182	436	7151404582357480	functionalC.exe	6f8a7df786207870
-6	172	7151404637014977	CMakeFiles/functionalC.dir/src/main.c.obj	a8ea97262b45a403
 173	416	7151404639399742	functionalC.exe	6f8a7df786207870
+6	172	7151404637014977	CMakeFiles/functionalC.dir/src/main.c.obj	a8ea97262b45a403

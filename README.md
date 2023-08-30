@@ -3,12 +3,13 @@
 ### because I have nothing better to do with my life
 
 ```c
-// using double preprocessing
-CreateTypeClass(Functor unconstrained)
-CreateTypeClass(Applicative constrained by Functor)
-CreateTypeClass(Monad constrained by Applicative)
+/* using double preprocessing */
 
-CreateData(Maybe containing void* value; int isNothing constrained by Monad)
+CreateTypeClass(Functor unconstrained)
+CreateTypeClass(Applicative constrainedBy Functor)
+CreateTypeClass(Monad constrainedBy Applicative)
+
+CreateData(Maybe containing void* value; int isNothing constrainedBy Monad)
 
 int* add3(void *, const int *a) 
 {

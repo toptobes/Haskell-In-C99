@@ -80,16 +80,16 @@ void test() {
 #define FunctorConstraint Functor unconstrained
 CreateTypeClass(Functor unconstrained)
 
-#define ApplicativeConstraint Applicative constrained by FunctorConstraint
-CreateTypeClass(Applicative constrained by Functor)
+#define ApplicativeConstraint Applicative constrainedBy FunctorConstraint
+CreateTypeClass(Applicative constrainedBy Functor)
 
-#define MonadConstraint Monad constrained by ApplicativeConstraint
-CreateTypeClass(Monad constrained by Applicative)
+#define MonadConstraint Monad constrainedBy ApplicativeConstraint
+CreateTypeClass(Monad constrainedBy Applicative)
 
 #define TestConstraint Test unconstrained
 CreateTypeClass(Test unconstrained)
 
-CreateData(Maybe containing void* value; int isNothing constrained by Monad, Test)
+CreateData(Maybe containing void* value; int isNothing constrainedBy Monad, Test)
 
 Maybe Just(int *p) {
     return (Maybe) { .isNothing = 0, .value = p };

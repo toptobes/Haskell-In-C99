@@ -57,8 +57,7 @@ typedef struct {} None;
 #define CreateData(name, init, ...) CreateDataImpl(name, init EXPAND(__VA_ARGS__))
 
 #define unconstrained , None
-#define constrained
-#define by ,
+#define constrainedBy ,
 #define containing ,
 
 #endif//FUNCTIONALC_TYPES_H
