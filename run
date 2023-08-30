@@ -1,0 +1,18 @@
+#!/bin/bash
+
+c_files=$(find . src -name *.c)
+
+preprocessed_files=""
+for file in $c_files; do
+  output_file="${file%.c}-pp.c"
+  cpp "$file" | sed -E 's/_\$\$(\w+)/\n#\1/g' > "$output_file"
+  preprocessed_files="$preprocessed_files $output_file"
+done
+
+gcc $preprocessed_files -o main.exe -w
+
+./main.exe
+
+echo -e "\nProcess exited with $?\n"
+
+rm -f $preprocessed_files main.exe
