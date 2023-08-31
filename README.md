@@ -26,7 +26,7 @@ Maybe fmapMaybe(Maybe m, void* (**fn)(void*, void*))
     return m.isNothing ? m : Just $ Call $ fn, fromJust (m) end2
 }
 
-// _Generic's not really extensible ik, might break my rules slightly and add a pre-pre-processor
+// _Generic's not really extensible ik, might break my rules slightly and add a pre-preprocessor
 // script to collect typeclass method implementations and aggregate them in the _Generics
 #define fmap(self, fn) _Generic(self, Maybe: fmapMaybe(self, fn))
 
