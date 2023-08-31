@@ -28,11 +28,11 @@ Maybe fmapMaybe(Maybe m, void* (**fn)(void*, void*))
 
 // _Generic's not really extensible ik, might break my rules slightly and add a pre-compilation script to collect
 // typeclass method implementations and aggregate them in the _Generics
-#define fmap(self, ...) _Generic(self, Maybe: fmapMaybe(self, ##__VA_ARGS__))
+#define fmap(self, fn) _Generic(self, Maybe: fmapMaybe(self, fn))
 
 // Using a deferred definition here so fmap can be used with $ as well
 // Again could add automation script to ./run for this though that's kinda cheating
-#define DEFERRED_FMAP #define fmap(self, ...) _Generic(self, Maybe: fmapMaybe(self, ##__VA_ARGS__))
+#define DEFERRED_FMAP #define fmap(self, fn) _Generic(self, Maybe: fmapMaybe(self, fn))
 DEFERRED_FMAP
 
 int* add(const int amount, const int *a) 
