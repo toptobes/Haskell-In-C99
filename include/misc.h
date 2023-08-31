@@ -9,6 +9,11 @@
     q;                               \
 });
 
+#ifdef DOUBLEPP
+    #define DEFERRED_ALLOCATED #define Allocated(t) ({  typeof(t) *q = malloc(sizeof q); *q = t; q; })
+    DEFERRED_ALLOCATED
+#endif
+
 #define $ (
 
 #define end  ;

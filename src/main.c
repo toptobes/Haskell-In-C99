@@ -91,6 +91,8 @@ CreateTypeClass(Test unconstrained)
 
 CreateData(Maybe containing void* value; int isNothing constrainedBy Monad, Test)
 
+const Maybe Nothing = (Maybe) { .isNothing = 1 };
+
 Maybe Just(int *p) {
     return (Maybe) { .isNothing = 0, .value = p };
 }
@@ -101,21 +103,33 @@ void* fromJust(Maybe m) {
 
 typedef void* FmapFn(void*, void*);
 
-Maybe fmapMaybe(FmapFn **fn, Maybe m) {
-    return m.isNothing ? m : Just (Call (fn, fromJust (m)));
+Maybe fmapMaybe(Maybe m, FmapFn **fn) {
+    #ifdef DOUBLEPP
+        return m.isNothing ? m : Just $ Call $ fn, fromJust (m) end2
+    #else
+        return m.isNothing ? m : Just $ Call (fn, fromJust (m)) end1
+    #endif
 }
 
-int* add3(void *, const int *a) {
-    return Allocated(*a + 3)
+int* add(const int amount, const int *a) {
+    #ifdef DOUBLEPP
+        return Allocated $ *a + amount end1
+    #else
+        return Allocated (*a + amount)
+    #endif
 }
+
+#define fmap(self, ...) _Generic(self, Maybe: fmapMaybe(self, ##__VA_ARGS__))
+#ifdef DOUBLEPP
+    #define DEFERRED_FMAP #define fmap(self, ...) _Generic(self, Maybe: fmapMaybe(self, ##__VA_ARGS__))
+    DEFERRED_FMAP
+#endif
 
 int main(int argc)
 {
-    return deref(int) fromJust $ fmapMaybe $ Λ (add3), Just (&argc) end2
+    #ifdef DOUBLEPP
+        return deref(int) fromJust $ fmap $ Just (&argc), λ (add, 3) end2
+    #else
+        return deref(int) fromJust $ fmapMaybe $ Just (&argc), λ (add, 3) end2
+    #endif
 }
-
-//#define fmap(name, args, ...) fmapImpl(name, args, EXPAND(__VA_ARGS__))
-//#define fmapImpl(...)
-
-//fmap ((Λ (add3), myMaybe), FmapFn** to Maybe to Maybe)
-//return *(Call(Λ (add3), &argc));
