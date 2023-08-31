@@ -37,7 +37,7 @@ DEFERRED_FMAP
 
 int* add(const int amount, const int *a) 
 {
-    return Allocated $ *a + amount end1
+    return Allocated (*a + amount)
 }
 
 int main(int argc)
